@@ -11,6 +11,7 @@ from selenium import webdriver
 import pandas as pd
 import os
 import time
+import datetime as dt
 
 
 # In[246]:
@@ -30,7 +31,7 @@ def scrape():
     url = "https://mars.nasa.gov/news/"
     browser.visit(url)
     import time
-    time.sleep(5)
+    time.sleep(1)
 
     #using bs to write it into html
     html = browser.html
@@ -66,11 +67,11 @@ def scrape():
     browser.visit(url)
     import time
     # Moving through the pages
-    time.sleep(5)
+    time.sleep(1)
     browser.click_link_by_partial_text('FULL IMAGE')
-    time.sleep(2)
+    time.sleep(1)
     browser.click_link_by_partial_text('more info')
-    time.sleep(2)
+    time.sleep(1)
 
 
     # In[91]:
@@ -148,7 +149,7 @@ def scrape():
 
     # Setting columns and index
     mars_fact_df.columns = ["Parameter", "Values"]
-    mars_fact_df.set_index(["Parameter"])
+    mars_fact_df = mars_fact_df.set_index(["Parameter"])
 
     # Converting to Html
     mars_html_table = mars_fact_df.to_html()
@@ -199,4 +200,5 @@ def scrape():
 # In[244]:
 
     mars_dict["mars_hemisphere"] = mars_hemisphere
+    mars_dict["TimeStamp"]=dt.datetime.now()
     return mars_dict
